@@ -6,13 +6,13 @@
 #    By: slimane <slimane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/22 21:06:35 by slimane           #+#    #+#              #
-#    Updated: 2025/06/26 19:58:35 by slimane          ###   ########.fr        #
+#    Updated: 2025/06/27 11:39:31 by slimane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 
-FLAGS=  -Wall -Wextra -Werror 
+FLAGS=  -Wall -Wextra -Werror #-g -fsanitize=address
 
 SRC= main.c ft_atoi.c  
 
@@ -23,7 +23,7 @@ NAME=philo
 all:${NAME}
 
 ${NAME}:${OBJ}
-	${CC} ${CFLAGS} ${OBJ} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJ} -o ${NAME}  
 
 %.o: %.c philo.h
 	${CC} ${FLAGS} -c $< -o $@ 
