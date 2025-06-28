@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 20:12:24 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/26 20:10:26 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/28 21:44:28 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ typedef struct s_philo
 	pthread_mutex_t	count_m;
 }					t_philo;
 
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
+long	get_time(void);
+int		lock(pthread_mutex_t *data, int flag);
+void	ft_usleep(long t, t_philo *philo);
+int		check_arg(char *str);
+int		parse_arg(char **str);
+int		should_exit(t_philo *philo);
+void	take_fork(t_philo *philo);
+void	ft_eat(t_philo	*philo);
+void	ft_sleep(t_philo *philo);
+void	ft_think(t_philo *philo);
+int		ft_check_die(t_philo **data);
+void	ft_check_dead(t_philo *data);
+int		ft_init_data(t_philos *data, char **av);
+int		ft_init_var(t_philos **data, char **av);
+int		ft_mutex_destroy(t_philos *data, int i);
 
 #endif

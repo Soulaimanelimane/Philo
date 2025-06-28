@@ -6,15 +6,15 @@
 #    By: slimane <slimane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/22 21:06:35 by slimane           #+#    #+#              #
-#    Updated: 2025/06/27 11:39:31 by slimane          ###   ########.fr        #
+#    Updated: 2025/06/28 21:44:52 by slimane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 
-FLAGS=  -Wall -Wextra -Werror #-g -fsanitize=address
+FLAGS=  -Wall -Wextra -Werror  #-g3 -fsanitize=thread
 
-SRC= main.c ft_atoi.c  
+SRC= main.c ft_atoi.c  help.c action.c second_help.c
 
 OBJ=${SRC:.c=.o}
 
