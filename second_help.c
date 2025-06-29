@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:42:21 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/28 21:43:49 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/29 16:27:55 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ int	ft_mutex_destroy(t_philos *data, int i)
 
 	j = 0;
 	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->data_lo);
+	pthread_mutex_destroy(&data->done_meal);
 	while (j < i)
 	{
 		pthread_mutex_destroy(&data->fork[j]);
 		j++;
 	}
+	free(data->fork);
 	return (-1);
 }
 
@@ -53,16 +56,19 @@ int	ft_init_data(t_philos *data, char **av)
 	if (data->fork == NULL)
 		return (-1);
 	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (-1);
-	pthread_mutex_init(&data->data_lo, NULL);
-	pthread_mutex_init(&data->done_meal, NULL);
+		return (free(data->fork), -1);
+	if (pthread_mutex_init(&data->data_lo, NULL) != 0)
+		return (free(data->fork), pthread_mutex_destroy(&data->print), 1);
+	if (pthread_mutex_init(&data->done_meal, NULL) != 0)
+		return (free(data->fork), pthread_mutex_destroy(&data->print),
+			pthread_mutex_destroy(&data->data_lo), -1);
 	while (i < data->num_philo)
 	{
 		if (pthread_mutex_init(&data->fork[i], NULL) != 0)
 			return (ft_mutex_destroy(data, i));
 		i++;
 	}
-	return 0;
+	return (0);
 
 }
 
@@ -99,11 +105,14 @@ int	ft_check_die(t_philo **data)
 		(lock(&(*data)[i].meal, 2), lock(&(*data)[i].count_m, 1));
 		if ((*data)[i].count_meals == (*data)[i].info->num_meals)
 			k++;
+		lock(&(*data)[i].info->done_meal, 1);
 		if (k == (*data)[i].info->num_philo)
 		{
 			(*data)[i].info->meals_done = 1;
+			lock(&(*data)[i].info->done_meal, 2);
 			return (lock(&(*data)[i].count_m, 2), 1);
 		}
+		lock(&(*data)[i].info->done_meal, 2);
 		(lock(&(*data)[i].count_m, 2), i++);
 	}
 	return (0);

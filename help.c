@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:57:55 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/28 20:36:13 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/28 22:36:16 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_usleep(long t, t_philo *philo)
 			break;
 		}
 		lock(&philo->info->data_lo, 2);	
-		usleep(333);
+		usleep(100);
 	}
 }
 

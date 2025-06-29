@@ -8,6 +8,9 @@
         "string_view": "c",
         "vector": "c",
         "locale": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "__mutex_base": "c",
+        "memory": "c",
+        "mutex": "c"
     }
 }
