@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:07:59 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/29 20:38:57 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/29 22:43:15 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,39 @@ void	moniteur(t_philo *data)
 	}
 }
 
+int	ft_handel_one(t_philo *philo)
+{
+	if (philo->info->num_philo == 1)
+	{
+		lock(philo->right_fork, 1);
+		lock(&philo->info->print, 1);
+		printf("%ld %d has taken a fork\n", get_time() - philo->start, philo->id);
+		return (lock(philo->right_fork, 2), lock(&philo->info->print, 2), 1);		
+	}
+	return (0);
+}
+
+void	ft_set_last_meal(t_philo *philo)
+{
+	lock(&philo->meal, 1);
+	philo->last_meal = philo->start;
+	lock(&philo->meal, 2);
+}
 
 void	*routine(void *data)
 {
 	t_philo *philo;
 
-	philo = (t_philo *)data;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-	lock(&philo->meal, 1);
-	(philo->last_meal = philo->start, lock(&philo->meal, 2));
+	philo = (t_philo *)data;
+	ft_set_last_meal(philo);
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->info->time_to_eat / 2, philo);
 	while (1)
 	{
 		if (should_exit(philo))
 			return (NULL);
+		if (handel_one(philo) == 1)
+			break ;
 		take_fork(philo);
 		if (should_exit(philo))
 			break;
@@ -59,35 +78,7 @@ void	*routine(void *data)
 	}
 	return (NULL);
 }
-
-
-void	ft_init_philo_var(t_philo *philo, t_philos *data, int i)
-{
-	philo->id = i + 1;
-	philo->info = data;
-	philo->last_meal = 0;
-	philo->count_meals = 0;
-	philo->die = 0;
-	philo->start = get_time();
-	philo->right_fork = &data->fork[i];
-	philo->left_fork = &data->fork[(i + 1) % data->num_philo];
-}
-
-void	ft_destroy_philo(t_philo *philo, int flag, int i)
-{
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		pthread_mutex_destroy(&philo[j].meal);
-		if (flag == 1)
-			pthread_mutex_destroy(&philo[i].count_m);
-		j++;
-	}
-	ft_mutex_destroy(philo->info, philo->info->num_philo);
-}
-
+ 
 int		init_philos(t_philo *philos, t_philos *data)
 {
 	int	i;
@@ -157,15 +148,11 @@ int	start_simulation(t_philos *data, char **av)
 	}
 	return (free(philos->info->fork), free(philos), 0);
 }
-void f()
-{
-	system("leaks philo");
-}
+
 int	main(int ac, char **av)
 {
 	t_philos	data;
 
-	atexit(f);
 	if (ac == 5 || ac == 6)
 	{
 		if (parse_arg(av) == 1)

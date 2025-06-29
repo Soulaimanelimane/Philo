@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 20:12:24 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/29 18:04:47 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/29 20:42:00 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void	ft_check_dead(t_philo *data);
 int		ft_init_data(t_philos *data, char **av);
 int		ft_init_var(t_philos **data, char **av);
 int		ft_mutex_destroy(t_philos *data, int i);
+void	ft_init_philo_var(t_philo *philo, t_philos *data, int i);
+void	ft_destroy_philo(t_philo *philo, int flag, int i);
 
 #endif

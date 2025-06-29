@@ -6,7 +6,7 @@
 #    By: slimane <slimane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/22 21:06:35 by slimane           #+#    #+#              #
-#    Updated: 2025/06/29 15:57:40 by slimane          ###   ########.fr        #
+#    Updated: 2025/06/29 20:42:13 by slimane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC=cc
 
 FLAGS=  -Wall -Wextra -Werror # -g3 -fsanitize=thread
 
-SRC= main.c ft_atoi.c  help.c action.c second_help.c
+SRC= main.c ft_atoi.c  help.c action.c second_help.c third_help.c
 
 OBJ=${SRC:.c=.o}
 
