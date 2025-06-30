@@ -6,12 +6,11 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:57:55 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/28 22:36:16 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/30 12:25:38 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 long	get_time(void)
 {
@@ -19,7 +18,6 @@ long	get_time(void)
 
 	gettimeofday(&t, NULL);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
-	
 }
 
 int	lock(pthread_mutex_t *data, int flag)
@@ -42,9 +40,9 @@ void	ft_usleep(long t, t_philo *philo)
 		if (philo->info->philo_is_die == 1)
 		{
 			lock(&philo->info->data_lo, 2);
-			break;
+			break ;
 		}
-		lock(&philo->info->data_lo, 2);	
+		lock(&philo->info->data_lo, 2);
 		usleep(100);
 	}
 }
@@ -72,7 +70,7 @@ int	parse_arg(char **str)
 	{
 		if (check_arg(str[i]))
 		{
-			write(2,"INVALID ARGUMENT FOR PHILO\n", 27);
+			write(2, "INVALID ARGUMENT FOR PHILO\n", 27);
 			return (1);
 		}
 		i++;

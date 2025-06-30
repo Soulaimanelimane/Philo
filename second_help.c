@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:42:21 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/29 16:27:55 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:51:34 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,17 @@ int	ft_init_data(t_philos *data, char **av)
 		i++;
 	}
 	return (0);
-
 }
 
-void    ft_check_dead(t_philo *data)
+void	ft_check_dead(t_philo *data)
 {
-	if (data == NULL || data->info == NULL)
-		return ;
 	lock(&data->info->data_lo, 1);
 	data->die = 1;
 	data->info->philo_is_die = 1;
 	lock(&data->info->data_lo, 2);
 	lock(&data->info->print, 1);
-	printf("%ld %d died\n",get_time() - data->start, data->id);
+	printf("%ld %d died\n", get_time() - data->start, data->id);
 	lock(&data->info->print, 2);
-	
 }
 
 int	ft_check_die(t_philo **data)
@@ -93,15 +89,11 @@ int	ft_check_die(t_philo **data)
 
 	i = 0;
 	k = 0;
-	while(i < (*data)->info->num_philo)
+	while (i < (*data)->info->num_philo)
 	{
 		lock(&(*data)[i].meal, 1);
 		if ((get_time() - (*data)[i].last_meal) > (*data)->info->time_to_die)
-		{
-			lock(&(*data)[i].meal, 2);
-			ft_check_dead(&(*data)[i]);
-			return (1);
-		}
+			return (lock(&(*data)[i].meal, 2), ft_check_dead(&(*data)[i]), 1);
 		(lock(&(*data)[i].meal, 2), lock(&(*data)[i].count_m, 1));
 		if ((*data)[i].count_meals == (*data)[i].info->num_meals)
 			k++;
@@ -117,4 +109,3 @@ int	ft_check_die(t_philo **data)
 	}
 	return (0);
 }
-

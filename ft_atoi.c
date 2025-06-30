@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:17:44 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/22 21:29:14 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/30 12:23:12 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static int	overflow(int sign)
 
 int	ft_atoi(const char *str)
 {
-	 long long		result;
-	int						sign;
-	 long long		max;
-	int						i;
+	long long	result;
+	int			sign;
+	long long	max;
+	int			i;
 
 	result = 0;
 	sign = 1;

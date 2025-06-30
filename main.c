@@ -6,16 +6,14 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:07:59 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/29 22:43:15 by slimane          ###   ########.fr       */
+/*   Updated: 2025/06/30 12:30:07 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
 void	moniteur(t_philo *data)
 {
-
 	while (1)
 	{
 		lock(&data[0].info->data_lo, 1);
@@ -30,28 +28,9 @@ void	moniteur(t_philo *data)
 	}
 }
 
-int	ft_handel_one(t_philo *philo)
-{
-	if (philo->info->num_philo == 1)
-	{
-		lock(philo->right_fork, 1);
-		lock(&philo->info->print, 1);
-		printf("%ld %d has taken a fork\n", get_time() - philo->start, philo->id);
-		return (lock(philo->right_fork, 2), lock(&philo->info->print, 2), 1);		
-	}
-	return (0);
-}
-
-void	ft_set_last_meal(t_philo *philo)
-{
-	lock(&philo->meal, 1);
-	philo->last_meal = philo->start;
-	lock(&philo->meal, 2);
-}
-
 void	*routine(void *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)data;
 	ft_set_last_meal(philo);
@@ -59,50 +38,25 @@ void	*routine(void *data)
 		ft_usleep(philo->info->time_to_eat / 2, philo);
 	while (1)
 	{
-		if (should_exit(philo))
-			return (NULL);
-		if (handel_one(philo) == 1)
+		if (ft_handel_one(philo) == 1)
 			break ;
 		take_fork(philo);
 		if (should_exit(philo))
-			break;
+			break ;
 		ft_eat(philo);
 		if (should_exit(philo))
-			break;
+			break ;
 		ft_sleep(philo);
 		if (should_exit(philo))
-			break;
+			break ;
 		ft_think(philo);
 		if (should_exit(philo))
-			break;
+			break ;
 	}
 	return (NULL);
 }
- 
-int		init_philos(t_philo *philos, t_philos *data)
-{
-	int	i;
 
-	i = 0;
-	while (i < data->num_philo)
-	{
-		ft_init_philo_var(&philos[i], data, i);
-		if (pthread_mutex_init(&philos[i].meal, NULL) != 0)
-		{
-			ft_destroy_philo(philos, 0, i);
-			return (-1);
-		}
-		if (pthread_mutex_init(&philos[i].count_m, NULL) != 0)
-		{
-			ft_destroy_philo(philos, 1, i);
-			return (-1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int		create_threads(t_philo *philos, int n)
+int	create_threads(t_philo *philos, int n)
 {
 	int	i;
 
@@ -158,7 +112,7 @@ int	main(int ac, char **av)
 		if (parse_arg(av) == 1)
 			return (1);
 		if (start_simulation(&data, av) == 1)
-			return (1);	
+			return (1);
 		return (0);
 	}
 	write(2, "ERROR ARGGUMENTS ARE EMPTY\n", 27);
