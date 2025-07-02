@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:40:58 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/30 15:52:54 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:42:07 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_init_philo_var(t_philo *philo, t_philos *data, int i)
 	philo->info = data;
 	philo->last_meal = 0;
 	philo->count_meals = 0;
-	philo->die = 0;
 	philo->start = get_time();
 	philo->right_fork = &data->fork[i];
 	philo->left_fork = &data->fork[(i + 1) % data->num_philo];

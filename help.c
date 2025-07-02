@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:57:55 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/30 12:25:38 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/02 10:08:45 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ void	ft_usleep(long t, t_philo *philo)
 int	check_arg(char *str)
 {
 	int	i;
+	int	count;
 
 	i = 0;
+	count = 0;
 	while (str[i])
 	{
-		if (str[i] > 57 || str[i] < 48)
+		if (str[i] == '+')
+			count++;
+		if ((str[i] > 57 || str[i] < 48) && str[i] != '+')
+			return (1);
+		if (count > 1)
 			return (1);
 		i++;
 	}

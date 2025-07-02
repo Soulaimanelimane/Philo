@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:07:59 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/30 12:30:07 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:36:13 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ int	start_simulation(t_philos *data, char **av)
 		return (1);
 	philos = malloc(sizeof(t_philo) * data->num_philo);
 	if (!philos)
-		return (1);
+		return (free(data->fork), 1);
 	if (init_philos(philos, data) == -1)
 		return (free(philos), 1);
+
 	if (create_threads(philos, data->num_philo) == -1)
 		return (free(philos), 1);
 	usleep(10);
@@ -106,7 +107,6 @@ int	start_simulation(t_philos *data, char **av)
 int	main(int ac, char **av)
 {
 	t_philos	data;
-
 	if (ac == 5 || ac == 6)
 	{
 		if (parse_arg(av) == 1)
@@ -115,6 +115,7 @@ int	main(int ac, char **av)
 			return (1);
 		return (0);
 	}
-	write(2, "ERROR ARGGUMENTS ARE EMPTY\n", 27);
+	write(2, "number_of_philosophers time_to_die time_to_eat time_to_sleep\
+			[number_of_times_each_philosopher_must_eat]\n", 108);
 	return (1);
 }

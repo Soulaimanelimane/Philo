@@ -6,13 +6,13 @@
 #    By: slimane <slimane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/22 21:06:35 by slimane           #+#    #+#              #
-#    Updated: 2025/06/30 15:53:06 by slimane          ###   ########.fr        #
+#    Updated: 2025/07/02 15:37:52 by slimane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 
-FLAGS=  -Wall -Wextra -Werror # -g3 -fsanitize=thread
+FLAGS=  -Wall -Wextra -Werror #-g3 -fsanitize=thread
 
 SRC= main.c ft_atoi.c  help.c action.c second_help.c thrid_help.c fourth_help.c
 

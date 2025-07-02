@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 20:12:24 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/30 16:16:12 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:41:50 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_philo
 	int				id;
 	long			last_meal;
 	long			count_meals;
-	int				die;
 	long			start;
 	t_philos		*info;
 	pthread_t		thread;

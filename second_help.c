@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:42:21 by slimane           #+#    #+#             */
-/*   Updated: 2025/06/30 15:51:34 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:41:58 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int	ft_init_var(t_philos **data, char **av)
 {
 	(*data)->philo_is_die = 0;
 	(*data)->num_philo = ft_atoi(av[1]);
+	if ((*data)->num_philo == 0)
+		return (write(2, "numphilo isn't acceptable u should enter > 0\n", 45),
+			-1);
 	(*data)->time_to_die = ft_atoi(av[2]);
 	(*data)->time_to_eat = ft_atoi(av[3]);
 	(*data)->time_to_sleep = ft_atoi(av[4]);
@@ -74,7 +77,6 @@ int	ft_init_data(t_philos *data, char **av)
 void	ft_check_dead(t_philo *data)
 {
 	lock(&data->info->data_lo, 1);
-	data->die = 1;
 	data->info->philo_is_die = 1;
 	lock(&data->info->data_lo, 2);
 	lock(&data->info->print, 1);
