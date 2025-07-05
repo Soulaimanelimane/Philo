@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:42:21 by slimane           #+#    #+#             */
-/*   Updated: 2025/07/01 23:41:58 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/05 12:26:15 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,26 @@ int	ft_mutex_destroy(t_philos *data, int i)
 
 int	ft_init_var(t_philos **data, char **av)
 {
+	int	err;
+
+	err = 0;
 	(*data)->philo_is_die = 0;
-	(*data)->num_philo = ft_atoi(av[1]);
-	if ((*data)->num_philo == 0)
-		return (write(2, "numphilo isn't acceptable u should enter > 0\n", 45),
-			-1);
-	(*data)->time_to_die = ft_atoi(av[2]);
-	(*data)->time_to_eat = ft_atoi(av[3]);
-	(*data)->time_to_sleep = ft_atoi(av[4]);
+	(*data)->num_philo = ft_atoi(av[1], &err);
+	(*data)->time_to_die = ft_atoi(av[2], &err);
+	(*data)->time_to_eat = ft_atoi(av[3], &err);
+	(*data)->time_to_sleep = ft_atoi(av[4], &err);
 	(*data)->start_time = get_time();
 	(*data)->meals_done = 0;
 	if (av[5])
-		(*data)->num_meals = ft_atoi(av[5]);
+		(*data)->num_meals = ft_atoi(av[5], &err);
 	else
 		(*data)->num_meals = -1;
+	if ((*data)->num_philo == 0 || (*data)->time_to_die == 0
+		|| (*data)->time_to_eat == 0 || (*data)->time_to_sleep == 0
+		|| (*data)->num_meals == 0)
+		return (write(2, "all your arguments should be > 0\n", 33), -1);
+	if (err == 1)
+		return (write(2, "error in you argumments\n", 24), -1);
 	return (0);
 }
 

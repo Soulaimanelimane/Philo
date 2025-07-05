@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 20:12:24 by slimane           #+#    #+#             */
-/*   Updated: 2025/07/01 23:41:50 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/03 11:54:00 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_philo
 	pthread_mutex_t	count_m;
 }					t_philo;
 
-int		ft_atoi(const char *str);
+long	ft_atoi(const char *str, int *check);
 long	get_time(void);
 int		lock(pthread_mutex_t *data, int flag);
 void	ft_usleep(long t, t_philo *philo);

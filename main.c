@@ -6,7 +6,7 @@
 /*   By: slimane <slimane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:07:59 by slimane           #+#    #+#             */
-/*   Updated: 2025/07/02 15:36:13 by slimane          ###   ########.fr       */
+/*   Updated: 2025/07/05 12:26:03 by slimane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,9 @@ int	start_simulation(t_philos *data, char **av)
 		return (1);
 	philos = malloc(sizeof(t_philo) * data->num_philo);
 	if (!philos)
-		return (free(data->fork), 1);
+		return (ft_mutex_destroy(data, data->num_philo), free(data->fork), 1);
 	if (init_philos(philos, data) == -1)
 		return (free(philos), 1);
-
 	if (create_threads(philos, data->num_philo) == -1)
 		return (free(philos), 1);
 	usleep(10);
@@ -107,6 +106,7 @@ int	start_simulation(t_philos *data, char **av)
 int	main(int ac, char **av)
 {
 	t_philos	data;
+
 	if (ac == 5 || ac == 6)
 	{
 		if (parse_arg(av) == 1)
